@@ -20,13 +20,6 @@ final class GridCollectionViewCell: UICollectionViewCell, OpenMarketCellProtocol
     
     private let numberFormatter = NumberFormatter()
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        setUpSubViewStructure()
-        setUpLayoutConstraints()
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -42,7 +35,11 @@ final class GridCollectionViewCell: UICollectionViewCell, OpenMarketCellProtocol
         setUpSubViewStructure()
         setUpLayoutConstraints()
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func setUpSubViewStructure() {
         contentView.addSubview(mainStackView)
         mainStackView.addArrangedSubview(productImageView)
