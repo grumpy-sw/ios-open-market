@@ -16,8 +16,19 @@ protocol OpenMarketCellProtocol {
     
     func configureCellContents(product: Product)
     func createLabel(font: UIFont, textColor: UIColor, alignment: NSTextAlignment) -> UILabel
-    func createStackView(axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, distribution: UIStackView.Distribution, spacing: CGFloat) -> UIStackView
-    func createStackView(axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, distribution: UIStackView.Distribution, spacing: CGFloat, margin: UIEdgeInsets) -> UIStackView
+    func createStackView(
+        axis: NSLayoutConstraint.Axis,
+        alignment: UIStackView.Alignment,
+        distribution: UIStackView.Distribution,
+        spacing: CGFloat
+    ) -> UIStackView
+    func createStackView(
+        axis: NSLayoutConstraint.Axis,
+        alignment: UIStackView.Alignment,
+        distribution: UIStackView.Distribution,
+        spacing: CGFloat,
+        margin: UIEdgeInsets
+    ) -> UIStackView
     func createImageView(contentMode: UIImageView.ContentMode) -> UIImageView
 }
 
@@ -33,7 +44,12 @@ extension OpenMarketCellProtocol {
         return label
     }
     
-    func createStackView(axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, distribution: UIStackView.Distribution, spacing: CGFloat) -> UIStackView {
+    func createStackView(
+        axis: NSLayoutConstraint.Axis,
+        alignment: UIStackView.Alignment,
+        distribution: UIStackView.Distribution,
+        spacing: CGFloat
+    ) -> UIStackView {
         let stackView = UIStackView()
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +61,13 @@ extension OpenMarketCellProtocol {
         return stackView
     }
     
-    func createStackView(axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, distribution: UIStackView.Distribution, spacing: CGFloat, margin: UIEdgeInsets) -> UIStackView {
+    func createStackView(
+        axis: NSLayoutConstraint.Axis,
+        alignment: UIStackView.Alignment,
+        distribution: UIStackView.Distribution,
+        spacing: CGFloat,
+        margin: UIEdgeInsets
+    ) -> UIStackView {
         let stackView = UIStackView()
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
