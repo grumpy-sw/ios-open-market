@@ -22,22 +22,56 @@ final class GridCollectionViewCell: UICollectionViewCell, OpenMarketCellProtocol
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.productNameLabel = createLabel(font: .preferredFont(for: .title3, weight: .semibold), textColor: .black, alignment: .center)
-        self.productImageView = createImageView(contentMode: .scaleAspectFit)
-        self.productPriceLabel = createLabel(font: .preferredFont(forTextStyle: .body), textColor: .systemGray, alignment: .center)
-        self.productBargainPriceLabel = createLabel(font: .preferredFont(forTextStyle: .body), textColor: .systemGray, alignment: .center)
-        self.productStockLabel = createLabel(font: .preferredFont(forTextStyle: .body), textColor: .systemGray, alignment: .center)
-        self.mainStackView = createStackView(axis: .vertical, alignment: .center, distribution: .fill, spacing: 5, margin: UIEdgeInsets(top: 10, left: 10, bottom: 5, right: 10))
-        self.priceStackView = createStackView(axis: .vertical, alignment: .center, distribution: .fillProportionally, spacing: 0)
-        self.informationStackView = createStackView(axis: .vertical, alignment: .center, distribution: .fillEqually, spacing: 5)
-        
+        setUpViewElements()
         setUpSubViewStructure()
         setUpLayoutConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setUpViewElements() {
+        productNameLabel = createLabel(
+            font: .preferredFont(for: .title3, weight: .semibold),
+            textColor: .black,
+            alignment: .center
+        )
+        productImageView = createImageView(contentMode: .scaleAspectFit)
+        productPriceLabel = createLabel(
+            font: .preferredFont(forTextStyle: .body),
+            textColor: .systemGray,
+            alignment: .center
+        )
+        productBargainPriceLabel = createLabel(
+            font: .preferredFont(forTextStyle: .body),
+            textColor: .systemGray,
+            alignment: .center
+        )
+        productStockLabel = createLabel(
+            font: .preferredFont(forTextStyle: .body),
+            textColor: .systemGray,
+            alignment: .center
+        )
+        mainStackView = createStackView(
+            axis: .vertical,
+            alignment: .center,
+            distribution: .fill,
+            spacing: 5,
+            margin: UIEdgeInsets(top: 10, left: 10, bottom: 5, right: 10)
+        )
+        priceStackView = createStackView(
+            axis: .vertical,
+            alignment: .center,
+            distribution: .fillProportionally,
+            spacing: 0
+        )
+        informationStackView = createStackView(
+            axis: .vertical,
+            alignment: .center,
+            distribution: .fillEqually,
+            spacing: 5
+        )
     }
     
     func setUpSubViewStructure() {
@@ -49,11 +83,9 @@ final class GridCollectionViewCell: UICollectionViewCell, OpenMarketCellProtocol
         informationStackView.addArrangedSubview(productStockLabel)
         priceStackView.addArrangedSubview(productPriceLabel)
         priceStackView.addArrangedSubview(productBargainPriceLabel)
-        
     }
     
     func setUpLayoutConstraints() {
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
