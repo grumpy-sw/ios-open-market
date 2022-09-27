@@ -15,8 +15,6 @@ final class DetailCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    
-    
     let mainStackView: UIStackView = {
        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,31 +31,35 @@ final class DetailCollectionViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setUpSubViewStructure() {
-        contentView.addSubview(mainStackView)
         mainStackView.addArrangedSubview(imageView)
+        contentView.addSubview(mainStackView)
     }
     
     func setUpLayoutConstraint() {
-        imageView.centerXAnchor.constraint(equalTo: mainStackView.centerXAnchor).isActive = true
-        imageView.centerYAnchor.constraint(equalTo: mainStackView.centerYAnchor).isActive = true
-        imageView.topAnchor.constraint(equalTo: mainStackView.topAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: mainStackView.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: mainStackView.centerYAnchor),
+            imageView.topAnchor.constraint(equalTo: mainStackView.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+            
+            imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.95)
+        ])
         
-        imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.95).isActive = true
-        
-        mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        mainStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        mainStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            mainStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            mainStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
     }
 }
 
