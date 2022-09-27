@@ -75,22 +75,30 @@ final class GridCollectionViewCell: UICollectionViewCell, OpenMarketCellProtocol
     }
     
     func setUpSubViewStructure() {
-        contentView.addSubview(mainStackView)
-        mainStackView.addArrangedSubview(productImageView)
-        mainStackView.addArrangedSubview(informationStackView)
+        priceStackView.addArrangedSubview(productPriceLabel)
+        priceStackView.addArrangedSubview(productBargainPriceLabel)
+        
         informationStackView.addArrangedSubview(productNameLabel)
         informationStackView.addArrangedSubview(priceStackView)
         informationStackView.addArrangedSubview(productStockLabel)
-        priceStackView.addArrangedSubview(productPriceLabel)
-        priceStackView.addArrangedSubview(productBargainPriceLabel)
+        
+        mainStackView.addArrangedSubview(productImageView)
+        mainStackView.addArrangedSubview(informationStackView)
+        
+        contentView.addSubview(mainStackView)
     }
     
     func setUpLayoutConstraints() {
-        mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        productImageView.heightAnchor.constraint(equalTo: mainStackView.heightAnchor, multiplier: 0.5).isActive = true
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            productImageView.heightAnchor.constraint(equalTo: mainStackView.heightAnchor, multiplier: 0.5)
+        ])
     }
     
     func configureCellContents(product: Product) {
@@ -107,7 +115,10 @@ final class GridCollectionViewCell: UICollectionViewCell, OpenMarketCellProtocol
         if product.discountedPrice != .zero {
             productBargainPriceLabel.text = "\(currency) \(numberFormatter.numberFormatString(for: product.bargainPrice))"
             productPriceLabel.textColor = .red
-            productPriceLabel.attributedText = setTextAttribute(of: price, attributes: [.strikethroughStyle: NSUnderlineStyle.single.rawValue])
+            productPriceLabel.attributedText = setTextAttribute(
+                of: price,
+                attributes: [.strikethroughStyle: NSUnderlineStyle.single.rawValue]
+            )
         }
         if product.stock == .zero {
             productStockLabel.text = "품절"
@@ -138,6 +149,6 @@ extension GridCollectionViewCell {
         productBargainPriceLabel.textColor = .systemGray
         productBargainPriceLabel.text = ""
         
-        productImageView.heightAnchor.constraint(equalTo: mainStackView.heightAnchor, multiplier: 0.5).isActive = true
+        setUpLayoutConstraints()
     }
 }
