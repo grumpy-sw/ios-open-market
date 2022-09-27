@@ -23,42 +23,62 @@ final class ListCollectionViewCell: UICollectionViewListCell, OpenMarketCellProt
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        productNameLabel = createLabel(font: .preferredFont(forTextStyle: .headline), textColor: .black, alignment: .natural)
-        productPriceLabel = createLabel(font: .preferredFont(forTextStyle: .subheadline), textColor: .systemGray, alignment: .left)
-        productBargainPriceLabel = createLabel(font: .preferredFont(forTextStyle: .subheadline), textColor: .systemGray, alignment: .left)
-        productStockLabel = createLabel(font: .preferredFont(forTextStyle: .subheadline), textColor: .systemGray, alignment: .right)
-        productImageView = createImageView(contentMode: .scaleAspectFit)
-        mainStackView = createStackView(axis: .horizontal, alignment: .top, distribution: .fillProportionally, spacing: 5, margin: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
-        informationStackView = createStackView(axis: .vertical, alignment: .fill, distribution: .fillEqually, spacing: 0)
-        nameStockStackView = createStackView(axis: .horizontal, alignment: .leading, distribution: .fill, spacing: 0)
-        priceStackView = createStackView(axis: .horizontal, alignment: .leading, distribution: .fill, spacing: 5)
-        
+        setUpViewElements()
         setUpSubViewStructure()
         setUpLayoutConstraints()
-        
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setUpSubViewStructure()
-        setUpLayoutConstraints()
+        fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpSubViewStructure() {
-        contentView.addSubview(mainStackView)
-        mainStackView.addArrangedSubview(productImageView)
-        informationStackView.addArrangedSubview(nameStockStackView)
-        informationStackView.addArrangedSubview(priceStackView)
-        mainStackView.addArrangedSubview(informationStackView)
-        nameStockStackView.addArrangedSubview(productNameLabel)
-        nameStockStackView.addArrangedSubview(productStockLabel)
-        priceStackView.addArrangedSubview(productPriceLabel)
-        priceStackView.addArrangedSubview(productBargainPriceLabel)
-    }
-    
-    func setUpLayoutConstraints() {
-        informationStackView.centerYAnchor.constraint(equalTo: mainStackView.centerYAnchor).isActive = true
+    func setUpViewElements() {
+        productNameLabel = createLabel(
+            font: .preferredFont(forTextStyle: .headline),
+            textColor: .black,
+            alignment: .natural
+        )
+        productPriceLabel = createLabel(
+            font: .preferredFont(forTextStyle: .subheadline),
+            textColor: .systemGray,
+            alignment: .left
+        )
+        productBargainPriceLabel = createLabel(
+            font: .preferredFont(forTextStyle: .subheadline),
+            textColor: .systemGray,
+            alignment: .left
+        )
+        productStockLabel = createLabel(
+            font: .preferredFont(forTextStyle: .subheadline),
+            textColor: .systemGray,
+            alignment: .right
+        )
+        productImageView = createImageView(contentMode: .scaleAspectFit)
+        mainStackView = createStackView(
+            axis: .horizontal,
+            alignment: .top,
+            distribution: .fillProportionally,
+            spacing: 5,
+            margin: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        )
+        informationStackView = createStackView(
+            axis: .vertical,
+            alignment: .fill,
+            distribution: .fillEqually,
+            spacing: 0
+        )
+        nameStockStackView = createStackView(
+            axis: .horizontal,
+            alignment: .leading,
+            distribution: .fill,
+            spacing: 0
+        )
+        priceStackView = createStackView(
+            axis: .horizontal,
+            alignment: .leading,
+            distribution: .fill,
+            spacing: 5
+        )
         
         productNameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         productStockLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -67,16 +87,41 @@ final class ListCollectionViewCell: UICollectionViewListCell, OpenMarketCellProt
         
         productPriceLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         productBargainPriceLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+    }
+    
+    func setUpSubViewStructure() {
+        nameStockStackView.addArrangedSubview(productNameLabel)
+        nameStockStackView.addArrangedSubview(productStockLabel)
         
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        mainStackView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        priceStackView.addArrangedSubview(productPriceLabel)
+        priceStackView.addArrangedSubview(productBargainPriceLabel)
         
-        productImageView.heightAnchor.constraint(equalTo: mainStackView.heightAnchor, constant: -10).isActive = true
-        productImageView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor, multiplier: 0.15).isActive = true
+        informationStackView.addArrangedSubview(nameStockStackView)
+        informationStackView.addArrangedSubview(priceStackView)
+        
+        mainStackView.addArrangedSubview(productImageView)
+        mainStackView.addArrangedSubview(informationStackView)
+        
+        contentView.addSubview(mainStackView)
+    }
+    
+    func setUpLayoutConstraints() {
+        NSLayoutConstraint.activate([
+            informationStackView.centerYAnchor.constraint(equalTo: mainStackView.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            mainStackView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
+        NSLayoutConstraint.activate([
+            productImageView.heightAnchor.constraint(equalTo: mainStackView.heightAnchor, constant: -10),
+            productImageView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor, multiplier: 0.15)
+        ])
     }
     
     func configureCellContents(product: Product) {
@@ -93,7 +138,10 @@ final class ListCollectionViewCell: UICollectionViewListCell, OpenMarketCellProt
         if product.discountedPrice != .zero {
             productBargainPriceLabel.text = "\(currency) \(numberFormatter.numberFormatString(for: product.bargainPrice))"
             productPriceLabel.textColor = .red
-            productPriceLabel.attributedText = setTextAttribute(of: price, attributes: [.strikethroughStyle: NSUnderlineStyle.single.rawValue])
+            productPriceLabel.attributedText = setTextAttribute(
+                of: price,
+                attributes: [.strikethroughStyle: NSUnderlineStyle.single.rawValue]
+            )
         }
         if product.stock == .zero {
             productStockLabel.text = "품절"
