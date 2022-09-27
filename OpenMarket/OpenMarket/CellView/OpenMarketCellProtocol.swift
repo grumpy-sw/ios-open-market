@@ -25,6 +25,7 @@ extension OpenMarketCellProtocol {
     func createLabel(font: UIFont, textColor: UIColor, alignment: NSTextAlignment) -> UILabel {
         let label = UILabel()
         
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = font
         label.textColor = textColor
         label.textAlignment = alignment
@@ -60,7 +61,10 @@ extension OpenMarketCellProtocol {
     
     func createImageView(contentMode: UIImageView.ContentMode) -> UIImageView {
         let imageView = UIImageView()
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = contentMode
+        
         return imageView
     }
 }
