@@ -70,7 +70,7 @@ final class DetailView: UIView {
     }()
     
     let pageLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         return label
@@ -108,11 +108,10 @@ final class DetailView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setupSubviewStructures() {
-        
         informationStackView.addArrangedSubview(nameLabel)
         informationStackView.addArrangedSubview(stockLabel)
         
@@ -124,36 +123,54 @@ final class DetailView: UIView {
         mainStackView.addArrangedSubview(bargainPriceLabel)
         mainStackView.addArrangedSubview(descriptionLabel)
         mainScrollView.addSubview(mainStackView)
-        self.addSubview(mainScrollView)
         
+        self.addSubview(mainScrollView)
     }
     
     func setupLayoutConstraints() {
-        mainScrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        mainScrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        mainScrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
-        mainScrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive = true
-        mainScrollView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        mainScrollView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            mainScrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            mainScrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            mainScrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
+            mainScrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
+            mainScrollView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            mainScrollView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
         
-        mainStackView.topAnchor.constraint(equalTo: mainScrollView.topAnchor).isActive = true
-        mainStackView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor).isActive = true
-        mainStackView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor).isActive = true
-        mainStackView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor).isActive = true
-        mainStackView.centerXAnchor.constraint(equalTo: mainScrollView.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor),
+            mainStackView.centerXAnchor.constraint(equalTo: mainScrollView.centerXAnchor)
+        ])
         
-        collectionView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.45).isActive = true
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+            collectionView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.45)
+        ])
         
-        informationStackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor).isActive = true
-        informationStackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            informationStackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            informationStackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
+        ])
         
-        nameLabel.leadingAnchor.constraint(equalTo: informationStackView.leadingAnchor).isActive = true
-        stockLabel.trailingAnchor.constraint(equalTo: informationStackView.trailingAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            nameLabel.leadingAnchor.constraint(equalTo: informationStackView.leadingAnchor)
+        ])
         
-        priceLabel.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor).isActive = true
-        bargainPriceLabel.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            stockLabel.trailingAnchor.constraint(equalTo: informationStackView.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            priceLabel.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            bargainPriceLabel.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
+        ])
     }
     
     func configureContents(product: Product?) {
@@ -185,7 +202,6 @@ final class DetailView: UIView {
     private func setTextAttribute(of target: String, attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
         let attributedText = NSMutableAttributedString(string: target)
         attributedText.addAttributes(attributes, range: (target as NSString).range(of: target))
-        
         return attributedText
     }
 }
